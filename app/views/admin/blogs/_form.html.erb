@@ -1,0 +1,37 @@
+<%= form_for([:admin,@blog]) do |f| %>
+  <% if @blog.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@blog.errors.count, "error") %> prohibited this admin_blog from being saved:</h2>
+
+      <ul>
+        <% @blog.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title, "标题" %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :category_id, "分类" %><br />
+    <%= f.select(:category_id,@categories.collect{|x| [x.title,x.id]}, :include_blank => true) %>
+  </div>
+  <div class="field">
+    <%= f.label :content,"内容" %><br />
+    <%= f.cktext_area :content, :language => 'zh-cn', :toolbar=>'Full', :width=>'950px', :height=>'500px' %>
+  </div>
+  <div class="field">
+    <%= f.label :tags,"标签" %><br />
+    <%= f.text_field :tags %>
+  </div>
+  <div class="field">
+    <%= f.label :seo_desc, "描述" %><br />
+    <%= f.text_field :seo_desc %>
+  </div>
+  <div class="actions">
+    <%= f.submit "提交", :disable_with => "提交中..." %>
+  </div>
+<% end %>

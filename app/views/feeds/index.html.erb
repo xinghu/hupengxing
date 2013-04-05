@@ -1,0 +1,14 @@
+atom_feed do |feed|
+  feed.title(@title)
+
+  feed.updated(@updated)
+
+  @blogs.each do |episode|
+    feed.entry(episode) do |entry|
+
+      entry.title(h(episode.title))
+      entry.summary(strip_tags(episode.content))
+
+    end
+  end
+end

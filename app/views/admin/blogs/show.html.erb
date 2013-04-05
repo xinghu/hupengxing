@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>标题:</b>
+  <%= @blog.title %>
+</p>
+
+<p>
+  <b>内容:</b>
+  <br/>
+  <%=raw @blog.content %>
+</p>
+
+<p>
+  <b>分类:</b>
+  <%= @blog.category_id %>
+</p>
+
+
+<%= link_to '编辑', edit_admin_blog_path(@blog) %> |
+<%= link_to '返回', admin_blogs_path %>

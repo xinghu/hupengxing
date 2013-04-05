@@ -1,0 +1,36 @@
+<h1>博客列表</h1>
+<div>
+<table>
+  <tr>
+    <th>标题</th>
+    <th>分类</th>
+    <th>阅读次数</th>
+    <th>评论次数</th>
+    <th>内容</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  <tr>
+    <td width="130px"></td><td width="70px"></td><td width="50"></td><td width="50"></td><td width="450"></td><td width="30"></td><td width="30"></td><td width="30"></td>
+  </tr>
+  <% @blogs.each do |admin_blog| %>
+    <tr>
+      <td><%= admin_blog.title %></td>
+      <td align="center"><%= admin_blog.category.title if admin_blog.category %></td>
+      <td align="center"><%= admin_blog.views_count %></td>
+      <td align="center"><%= admin_blog.reviews_count %></td>
+      <td><%= truncate(admin_blog.content, :length => 500) %></td>
+      <td><%= link_to '查看', [:admin,admin_blog] %></td>
+      <td><%= link_to '编辑', edit_admin_blog_path(admin_blog) %></td>
+      <td><%= link_to '删除', [:admin,admin_blog], :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+    <tr>
+      <td colspan="8"><hr/></td>
+    </tr>
+  <% end %>
+</table>
+</div>
+<div class="apple_pagination">
+  <%= paginate @blogs %>
+</div>

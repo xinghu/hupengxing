@@ -1,0 +1,16 @@
+en:
+  activerecord:
+    models:
+      category: "分类目录"
+      blog: "博客"
+      comment: "评论"
+    attributes:
+      category:
+        name: "名称"
+      blog:
+        title: "标题"
+        content: "正文"
+      comment:
+         name: "大名"
+         content: "评论内容"
+         email: "邮箱"

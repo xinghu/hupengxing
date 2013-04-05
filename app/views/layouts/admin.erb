@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin</title>
+    <%= stylesheet_link_tag 'admins' %>
+    <%= javascript_include_tag 'application' %>
+    <%= csrf_meta_tag %>
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="menu">
+        <h2>分类管理</h2>
+        <ul>
+          <li><%= link_to "分类列表",admin_categories_path %></li>
+          <li><%= link_to "创建新分类",new_admin_category_path %></li>
+        </ul>
+        <h2>博客管理</h2>
+        <ul>
+          <li><%= link_to "博客列表",admin_blogs_path %></li>
+          <li><%= link_to "创建新博客",new_admin_blog_path %></li>
+        </ul>
+        <h2>评论管理</h2>
+        <ul>
+          <li><%= link_to "评论列表",admin_comments_path %></li>
+        </ul>
+        <h2>书籍管理</h2>
+        <ul>
+          <li><%= link_to "list all books",admin_books_path %></li>
+          <li><%= link_to "new book",new_admin_book_path %></li>
+        </ul>
+      </div>
+      <div id="right">
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>

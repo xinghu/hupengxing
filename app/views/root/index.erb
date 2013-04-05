@@ -1,0 +1,44 @@
+<!-- 中间博客部分 -->
+<div id="contentwrapper">
+	<% if @blogs.present? %>
+	<% @blogs.each do |blog| %>
+	<% if blog.present? %>
+	<div class="topPost">
+		<h2 class="topTitle">
+		<%= link_to blog.title,blog, :title => blog.title %>&nbsp;&nbsp;
+	
+		</h2>
+		<p class="top_meta">
+			<%= blog.created_at.strftime("%Y-%m-%d %H:%M") %>
+		</p>
+		<div class="topContent">
+			<%= blog.content.html_safe %>
+		</div>
+		<div class="content_tips">
+			<span>
+				<img src="/images/comments.gif" title="评论数" />
+				<a href="/blogs/<%= blog.try(:id) %>#comments" title="评论数"><%= blog.comments.try(:size) %>个评论</a>
+			</span>
+			<span>
+				<img src="/images/tags.gif" title="去说说" />
+				<a href="/blogs/<%= blog.id %>#respond" title="去说说">我去说说</a>
+			</span>
+			<span>
+				<img src="/images/more.gif" title="more"/>
+				<%= link_to  "More", blog_path(blog), :title => 'more'  %>
+			</span>
+		</div>
+		<div class="cleared">
+		</div>
+	</div>
+	<br/>
+	<% end %>
+	<% end %>
+
+	<div class="digg_pagination">
+		<%= paginate @blogs%>
+	</div>
+	<% else %>
+	木有内容 ...
+	<% end %>
+</div>

@@ -1,0 +1,11 @@
+hi,<%= @comment.parent.name %><br/>
+
+<p><%= @comment.name %>回复了您在hupengxing.com的评论。</p>
+<p>点击<a href='<%= "http://hupengxing.com#{blog_path(@blog)}#comment-#{@comment.id}" %>'>这里</a>查看评论内容。</p>
+<div style="margin-top: 20px;">
+  <p></p>http://hupengxing.com期待您的访问。</p>
+  <p>Best Regards! </p>
+  <p><%= Date.today.to_s %></p>
+</div>
+
+

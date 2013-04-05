@@ -1,0 +1,9 @@
+<% comment.subtree.each_with_index do |com, index|  %>
+  <div id="comment-<%= com.id %>" class="<%= index == 0 ? 'cmt' : 'sub_cmt' %>">
+    <p><span id="name-<%=com.id%>"><%= com.name %></span> 于<%= com.created_at.strftime("%Y-%m-%d %H:%M ") %> 说：</p>
+    <p class="comment"><%= raw com.content %>
+      <span style="padding-left:50px;color:#ccc;"> <a href="javascript:void(0)" onclick="reply_comment('<%=com.name%>', '<%=com.id%>');" style="text-decoration: underline;">回复</a> </span>
+    </p>
+  </div>
+<% end %>
+

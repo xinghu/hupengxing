@@ -1,0 +1,30 @@
+<h1>All Books</h1>
+
+<table>
+  <tr>
+    <th>name</th>
+    <th>desc</th>
+    <th>path</th>
+    <th>views</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @admin_books.each do |admin_book| %>
+  <tr>
+    <td><%= admin_book.name %></td>
+    <td><%= admin_book.desc %></td>
+    <td><%= admin_book.path %></td>
+    <td><%= admin_book.view_count %></td>
+    <td><%= link_to 'Show', [:admin, admin_book] %></td>
+    <td><%= link_to 'Edit', edit_admin_book_path(admin_book) %></td>
+    <td><%= link_to 'Destroy', [:admin, admin_book], :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to '预览', book_path(admin_book), :target => "_blank" %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Book', new_admin_book_path %>

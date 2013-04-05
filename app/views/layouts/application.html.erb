@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="google-site-verification" content="CV7CWO5WErtHx4I1-3B_os5Ww-vdB9AA53PKalcBjXc" />
+    <meta name="baidu_union_verify" content="dbcba2e12b58ed0db90c5f097331924b">
+    <title><%= @title || $title %></title>
+    <meta name="keywords" content="<%= @keywords || $keywords %>">
+    <meta name="description" content="<%= @description || $description %>">
+    <meta name="robots" content="all">
+    </meta>
+
+    <link rel="shortcut icon" href="http://hupengxing.com/favicon.ico" />
+    <link rel="Bookmark" href="http://hupengxing.com/favicon.ico" />
+
+    <%= auto_discovery_link_tag :atom, "/feeds/feed" %>
+    <%= auto_discovery_link_tag :rss, "/feeds/feed.rss" %>
+
+    <title>Hupengxing's Blog</title>
+    <%= stylesheet_link_tag 'application' %>
+    <%= javascript_include_tag 'application' %>
+    <%= csrf_meta_tag %>
+    <script type="text/javascript">
+      SyntaxHighlighter.all();
+      var isIE = !!(window.attachEvent && !window.opera);
+      if(isIE) {
+        alert("为了达到更好的浏览效果，请使用firefox或chrome浏览器");
+      }
+      $(window).scroll( function() {
+        if(get_scrollTop() > 1800 && $(window).width() > 1000 ) {
+          $("#backTop").css('display', 'block');
+        } else {
+          $("#backTop").css('display', 'none');
+        }
+      });
+      var get_scrollTop = function() {
+        return document.documentElement.scrollTop == 0 ? document.body.scrollTop : document.documentElement.scrollTop;
+      }
+    </script>
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="header">
+        <div id="logo">
+          <div id="logo_left">
+            <h1><%= link_to "hupengxing's Home", {:controller => "/root", :action => "index"}, :title => "hupengxing's home" %></h1>
+            <span>爱自由、爱音乐、爱编程、爱足球、爱生活、更爱老婆！</span>
+          </div>
+          <div style='padding-left:5px; float:right'>
+            <%= render '/root/ads' %>
+          </div>
+
+        </div>
+      </div>
+      <div id="catnav">
+        <ul id="nav">
+          <li id="selected">
+            <%= link_to "Home", {:controller => "/root", :action => "index"}, :title => 'Home', :class => @category ? "" : "current" %>
+          </li>
+          <% if @categories.present? %>
+            <% @categories.each do |c| %>
+              <li>
+                <%= link_to c.title, c, :title => c.title, :class => @category && @category.id == c.id ? "current" : "" %>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+      <div class="cleard">
+      </div>
+      <div id="main">
+        <%= yield %>
+        <!-- 右侧 -->
+        <% unless @no_side %>
+          <div id="side">
+            <div id="search">
+              <p style="text-align:right" id="rss">
+                <%= link_to image_tag("/images/feed.png"), feed_path %>
+              </p>
+              <form method="get" id="sform" action="http://www.google.com/search" target="_blank">
+                <input type="text" id="q" value="" name="q" />
+                <input type="hidden" name="sitesearch" value="http://hupengxing.com" />
+                <input type="submit" value="Search" class="submit" id="searchsubmit"/>
+              </form>
+            </div>
+            <div id="sidebar_full">
+              <ul>
+                <li>
+                  <div id="welcome">
+                    <h2>About Me</h2>
+                    <div id='me'>
+                      <img src='http://pic.yupoo.com/hupengxing/ClJaPxBj/thumb.jpg' alt='design, web development' title="about me"/>
+                    </div>
+                    <p>
+                                                                                  胡鹏星 ROR程序员。
+                	<!-- Place this tag in your head or just before your close body tag google +1  -->
+		<script type="text/javascript" src="https://apis.google.com/js/plusone.js">{lang: 'zh-CN'}</script>
+
+		<g:plusone size="medium">
+		</g:plusone>
+
+                    </p>
+                    <p>
+                                                                                  喜欢简单，喜欢敏捷，喜欢Ruby On Rails。喜欢自由，喜欢开源，喜欢Linux。
+                    </p>
+                    <p>
+                      <img src='/images/mail.png' alt='ruby on rails' title="my email"/>
+
+                    </p>
+
+                  </div>
+                </li>
+                <li>
+                  <div class="sidebox">
+                    <h2>Books</h2>
+                    <ul>
+                      <% @books.each do |book| %>
+                        <li>
+                          <%= link_to "#{book.name}",book_path(book), :title => book.name %>
+                        </li>
+                      <% end %>
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                  <div class="sidebox">
+                    <h2>Recent Posts</h2>
+                    <ul>
+                      <% @recent_blogs.each do |blog| %>
+                        <li>
+                          <%= link_to "#{blog.title}",blog, :title => blog.title %>
+                        </li>
+                      <% end %>
+                    </ul>
+                  </div>
+                </li>
+                <!-- recent comments-->
+                <li>
+                  <div class="sidebox">
+                    <h2>Recent Comments</h2>
+                    <ul>
+                      <% @comments.each do |comment| %>
+                        <li>
+                          <span class='cmt_name'><%= comment.name %> : </span>
+<%= link_to "#{strip_tags(comment.content)}",blog_path(comment.blog, :anchor => "comment-#{comment.id}"), :title => comment.content %>
+                        </li>
+                      <% end %>
+                    </ul>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="sidebox">
+                    <h2>My Favourite Songs </h2>
+                    <ul>
+                      <li>
+                        <object type="application/x-shockwave-flash" data="/dewplayer/dewplayer-mini.swf" width="160" height="20" id="dewplayer" name="dewplayer">
+                          <param name="wmode" value="transparent" />
+                          <param name="movie" value="/dewplayer/dewplayer-mini.swf" />
+                          <param name="flashvars" value="mp3=/dewplayer/mp3/qmys.mp3&amp;autostart=0&amp;autoreplay=1" />
+                        </object>
+                                                                                          清明雨上
+                      </li>
+                      <li>
+                        <object type="application/x-shockwave-flash" data="/dewplayer/dewplayer-mini.swf" width="160" height="20" id="dewplayer" name="dewplayer">
+                          <param name="wmode" value="transparent" />
+                          <param name="movie" value="/dewplayer/dewplayer-mini.swf" />
+                          <param name="flashvars" value="mp3=http://www.chcups.ntct.edu.tw/edu/music/westlife-youraisemeup.mp3&amp;autoreplay=1&amp;volume=70" />
+                        </object>
+                                                                                          You Raise Me Up
+                      </li>
+                      <li>
+                        <object type="application/x-shockwave-flash" data="/dewplayer/dewplayer-mini.swf" width="160" height="20" id="dewplayer" name="dewplayer">
+                          <param name="wmode" value="transparent" />
+                          <param name="movie" value="/dewplayer/dewplayer-mini.swf" />
+                          <param name="flashvars" value="mp3=http://mp3.s135.com:2080/yin_wei_ai_qing.mp3&amp;volume=100&amp;autoreplay=1" />
+                        </object>
+                                                                                          关于爱情
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="sidebox">
+                    <h2>Friends Links</h2>
+                    <ul>
+                      <li>
+                        <%= link_to "hi-ruby", "http://www.hi-ruby.com", :title => "hi-ruby", :target => '_blank' %>
+                      </li>
+                      <li>
+                        <%= link_to "week face's blog", "http://www.writerok.com", :title => "week face's blog", :target => '_blank' %>
+                      </li>
+                      <li>
+                        <%= link_to "shitou's blog", "http://www.ccok.me", :title => "shitou's blog", :target => '_blank' %>
+                      </li>
+                      <li>
+                        <%= link_to "gdocsdrive", "http://www.gdocsdrive.com", :title => "gdocsdrive", :target => '_blank' %>
+                      </li>
+                      <li>
+                        <%= link_to "大煎饼网", "http://www.dajianbing.com", :title => "大煎饼", :target => '_blank' %>
+                      </li>
+                      <li>
+                        <%= link_to "罗茨鼓风机", "http://www.lfgfj.com/", :title => "罗茨鼓风机", :target => '_blank' %>
+                      </li>
+                      <li>
+                        <%= link_to "高温风机", "http://www.lfblower.com/", :title => "高温风机", :target => '_blank' %>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <!--右侧google广告 -->
+            <%= render '/layouts/right_ad' %>
+          </div>
+
+        <% end %>
+        <!-- JiaThis Button BEGIN -->
+        <script type="text/javascript" src="http://v2.jiathis.com/code/jiathis_r.js?move=0&amp;btn=r4.gif&amp;uid=1519130" charset="utf-8"></script>
+        <!-- JiaThis Button END -->
+      </div>
+      <% unless @no_side %>
+        <div>
+          <a id="backTop" href="javascript:void(0)" onclick="goTop();" style="display:none;"> TOP↑</a>
+        </div>
+      <% end %>
+
+      <!--footer -->
+
+      <div id="footer">
+        <%= render '/layouts/analytics' %>
+        <hr/>
+        <p>
+					Copyright &copy;2010-2011 <%= link_to "hupengxing",root_path %>. Powered by Rails3. 京ICP备10028977号
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

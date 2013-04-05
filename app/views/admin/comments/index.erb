@@ -1,0 +1,26 @@
+<h1>评论列表</h1>
+
+<table>
+  <tr>
+    <th>博客</th>
+    <th>用户名</th>
+    <th>邮箱</th>
+    <th>评论内容</th>
+    <th>评论时间</th>
+    <th></th>
+  </tr>
+
+<% @comments.each do |comment| %>
+  <tr>
+    <td width="20%"><%=link_to comment.blog.title, [:admin,comment.blog] %></td>
+    <td width="10%"><%= comment.name %></td>
+    <td width="10%"><%=  comment.email %></td>
+    <td width="40%" align="center"><%= comment.content %></td>
+    <td width="15%"><%= comment.created_at.strftime("%Y年%m月%d日") %></td>
+    <td width="5%"><%= link_to '删除', [:admin,comment], :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+<%= paginate @comments %>
+
+

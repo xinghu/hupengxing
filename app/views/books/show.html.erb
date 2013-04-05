@@ -1,0 +1,53 @@
+<%= javascript_include_tag 'flexpaper_flash', 'swfobject'%>
+<script type="text/javascript">
+            <!-- For version detection, set to min. required Flash Player version, or 0 (or 0.0.0), for no version detection. -->
+            var swfVersionStr = "10.0.0";
+            <!-- To use express install, set to playerProductInstall.swf, otherwise the empty string. -->
+            var xiSwfUrlStr = "playerProductInstall.swf";
+
+            var swfFile = "<%= @book.path %>";
+
+            var flashvars = {
+                  SwfFile : escape(swfFile),
+				  Scale : 0.6,
+				  ZoomTransition : "easeOut",
+				  ZoomTime : 0.5,
+  				  ZoomInterval : 0.1,
+  				  FitPageOnLoad : false,
+  				  FitWidthOnLoad : true,
+  				  PrintEnabled : false,
+  				  FullScreenAsMaxWindow : false,
+  				  ProgressiveLoading : true,
+
+  				  PrintToolsVisible : false,
+  				  ViewModeToolsVisible : true,
+  				  ZoomToolsVisible : true,
+  				  FullScreenVisible : true,
+  				  NavToolsVisible : true,
+  				  CursorToolsVisible : false,
+  				  SearchToolsVisible : true,
+
+  				  localeChain: "zh_CN"
+				  };
+
+			 var params = {
+
+			    }
+            params.quality = "high";
+            params.bgcolor = "#ffffff";
+            params.allowscriptaccess = "sameDomain";
+            params.allowfullscreen = "true";
+            var attributes = {};
+            attributes.id = "FlexPaperViewer";
+            attributes.name = "FlexPaperViewer";
+            swfobject.embedSWF(
+                "/flexpaper/FlexPaperViewer.swf", "flashContent",
+                "100%", "1000",
+                swfVersionStr, xiSwfUrlStr,
+                flashvars, params, attributes);
+			swfobject.createCSS("#flashContent", "display:block;text-align:left;");
+        </script>
+<div id="pdf_content">
+<div id="flashContent">
+</div>
+</div>

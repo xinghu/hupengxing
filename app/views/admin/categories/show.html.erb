@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>分类名称:</b>
+  <%= @category.title %>
+</p>
+
+<p>
+  <b>分类描述:</b>
+  <%= @category.desc %>
+</p>
+
+
+<%= link_to '编辑', edit_admin_category_path(@category) %> |
+<%= link_to '返回', admin_categories_path %>

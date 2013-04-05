@@ -1,0 +1,51 @@
+<div id="contentwrapper">
+  <div class="topPost">
+    <h2 class="topTitle">
+      <%= @blog.title %>
+    </h2>
+    <p class="top_meta">
+      <%= @blog.created_at.strftime("%Y年%m月%d日") %> by xinghu
+    </p>
+    <div class="topContent">
+      <%= @blog.content.html_safe %>
+    </div>
+    
+  </div> <br/>
+  <%= render '/root/ads' %>  
+
+  <div style="margin:10px;font-size:15px;" class="topTitle">
+     <p style="float:left;">
+        <% if @blog.previous.present? %>
+          <%= link_to "上一篇", blog_path(@blog.previous) %>
+        <% end %>
+      </p>
+      <p style="float:right;">
+        <% if @blog.next.present? %>
+          <%= link_to "下一篇", blog_path(@blog.next) %>
+        <% end %>      
+      </p>
+  </div>
+  <div class="cleared"></div>
+
+  <br>
+  <div id="comments">
+    <h2>他们说 …</h2>
+    <%= render @blog_comments %>
+  </div>
+
+
+</div>
+<script>
+  function ctlent(eventobject){
+    if(event.ctrlKey && window.event.keyCode==13){
+      $("#comment_form").submit();
+    }
+  } 
+   
+  function reply_comment(name, id){
+    re_str = "@"+ name + ":" ;
+    $("#comment_content").val(re_str);
+    $("#comment_content").slideDown();
+    $("#comment_parent_id").val(id);
+  }
+</script>
